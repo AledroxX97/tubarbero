@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TuBarbero — Gestión de barberías</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../static/css/style.css">
+    <link rel="icon" type="image/x-icon" href="/static/img/favicon.png">
+    
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <div class="logo-icon"><i class="bi bi-scissors"></i></div>
+        TuBarbero
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end gap-3" id="navMenu">
+        <a class="nav-link" href="#funciones">Funciones</a>
+        <a class="nav-link" href="#como-funciona">Cómo funciona</a>
+        <a class="nav-link" href="#contacto">Contacto</a>
+        <a href="/auth/login"    class="btn btn-outline-custom">Iniciar sesión</a>
+        <a href="/auth/registro" class="btn btn-dark-custom">Registrarse</a>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-badge">Gestión de barberías inteligente</div>
+    <br>
+    <p class="hero-badge1">Gestiona citas, controla tus finanzas y ofrece la mejor experiencia a tus clientes desde cualquier dispositivo.</p>
+    <div class="d-flex gap-3 justify-content-center">
+        <a href="/auth/registro" class="btn btn-dark-custom px-4 py-2">Empezar gratis</a>
+        <a href="#funciones"     class="btn btn-white px-4 py-2">Ver funciones</a>
+    </div>
+</section>
+<br>
+<!-- STATS -->
+<div class="stats-bar">
+    <div class="stat-card">
+        <div class="stat-num">+500</div>
+        <div class="stat-lbl">Citas gestionadas</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-num">100%</div>
+        <div class="stat-lbl">Disponibilidad</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-num">0$</div>
+        <div class="stat-lbl">Para empezar</div>
+    </div>
+</div>
+<br>
+<!-- FEATURES -->
+ 
+<section class="features-section" id="funciones">
+    <div class="container">
+        <div class="section-label">FUNCIONES</div>
+        <h2 class="section-title">Todo lo que necesitas</h2>
+        <p class="section-desc">Diseñado para barberías que quieren crecer y dar un servicio profesional.</p>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="feat-card">
+                    <div class="feat-icon"><i class="bi bi-calendar-check"></i></div>
+                    <h5>Reservas en línea</h5>
+                    <p>Tus clientes reservan citas 24/7 según la disponibilidad real de tu barbero. Sin llamadas, sin confusiones.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feat-card">
+                    <div class="feat-icon"><i class="bi bi-cash-coin"></i></div>
+                    <h5>Control financiero</h5>
+                    <p>Registra ingresos y gastos fácilmente. Los ingresos se registran solos al completar una cita.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feat-card">
+                    <div class="feat-icon"><i class="bi bi-scissors"></i></div>
+                    <h5>Panel del barbero</h5>
+                    <p>Ve todas tus citas organizadas por fecha y hora. Confirma, completa o cancela con un clic.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feat-card">
+                    <div class="feat-icon"><i class="bi bi-phone"></i></div>
+                    <h5>Funciona en móvil</h5>
+                    <p>Accede desde cualquier dispositivo sin instalar nada. 100% web y responsive.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feat-card">
+                    <div class="feat-icon"><i class="bi bi-shield-lock"></i></div>
+                    <h5>Datos seguros</h5>
+                    <p>Contraseñas encriptadas y sesiones seguras con tokens JWT para máxima protección.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feat-card">
+                    <div class="feat-icon"><i class="bi bi-graph-up"></i></div>
+                    <h5>Reportes semanales</h5>
+                    <p>Visualiza tus ingresos y gastos de la semana con gráficas claras y fáciles de entender.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="how-section" id="como-funciona">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <div class="section-label">CÓMO FUNCIONA</div>
+                <h2 class="section-title">En 3 pasos simples</h2>
+                <p class="section-desc">Empieza a usar tuBarbero en minutos, sin configuraciones complejas.</p>
+                <div class="step">
+                    <div class="step-num">1</div>
+                    <div>
+                        <h5>Crea tu cuenta de barbero</h5>
+                        <p>Regístrate, configura tu horario y agrega los servicios que ofreces con sus precios y duración.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-num">2</div>
+                    <div>
+                        <h5>Tus clientes reservan en línea</h5>
+                        <p>Ellos eligen el servicio, la fecha y la hora disponible. Tú ves todo organizado en tu panel.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-num">3</div>
+                    <div>
+                        <h5>Gestiona y crece</h5>
+                        <p>Completa citas, registra gastos y revisa tus reportes semanales para tomar mejores decisiones.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="bg-light border rounded-4 p-4">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <div class="bg-dark rounded-circle d-flex align-items-center justify-content-center" style="width:32px;height:32px;">
+                            <i class="bi bi-scissors text-white" style="font-size:14px;"></i>
+                        </div>
+                        <span class="fw-semibold">Panel TuBarbero</span>
+                    </div>
+                    <div class="row g-2 mb-3">
+                        <div class="col-6">
+                            <div class="bg-white border rounded-3 p-3 text-center">
+                                <div class="fw-bold fs-4">8</div>
+                                <div class="text-muted small">Citas hoy</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="bg-white border rounded-3 p-3 text-center">
+                                <div class="fw-bold fs-4 text-success">$120k</div>
+                                <div class="text-muted small">Esta semana</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white border rounded-3 p-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <small class="text-muted fw-semibold">PRÓXIMAS CITAS</small>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                            <div>
+                                <div class="fw-semibold small">Carlos M.</div>
+                                <div class="text-muted" style="font-size:12px;">Corte + barba</div>
+                            </div>
+                            <span class="badge bg-warning text-dark">9:00 AM</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                            <div>
+                                <div class="fw-semibold small">Luis R.</div>
+                                <div class="text-muted" style="font-size:12px;">Corte clásico</div>
+                            </div>
+                            <span class="badge bg-success">10:00 AM</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center py-2">
+                            <div>
+                                <div class="fw-semibold small">Pedro A.</div>
+                                <div class="text-muted" style="font-size:12px;">Afeitado</div>
+                            </div>
+                            <span class="badge bg-secondary">11:00 AM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contacto">
+    <h2>¿Listo para modernizar tu barbería?</h2>
+    <p>Únete a tuBarbero hoy mismo. Es gratis para empezar.</p>
+    <a href="/auth/registro" class="btn btn-white">Crear mi cuenta gratis</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container d-flex justify-content-between align-items-center flex-wrap gap-3">
+        <div class="d-flex align-items-center gap-2">
+            <div class="logo-icon"><i class="bi bi-scissors text-white"></i></div>
+            <span class="fw-semibold">TuBarbero</span>
+        </div>
+        <p class="text-muted small mb-0">© 2026 tuBarbero. Todos los derechos reservados.</p>
+        <div class="d-flex gap-3">
+            <a href="#" class="text-muted small text-decoration-none">Privacidad</a>
+            <a href="#" class="text-muted small text-decoration-none">Términos</a>
+            <a href="#funciones" class="text-muted small text-decoration-none">Funciones</a>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

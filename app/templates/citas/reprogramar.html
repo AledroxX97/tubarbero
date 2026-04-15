@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Reprogramar Cita{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header bg-dark text-white">🔄 Reprogramar Cita</div>
+            <div class="card-body p-4">
+                {% if error %}
+                <div class="alert alert-danger">{{ error }}</div>
+                {% endif %}
+                <p><strong>Servicio:</strong> {{ cita.servicio.nombre }}</p>
+                <p><strong>Barbero:</strong> {{ cita.barbero.nombre }}</p>
+                <form method="POST" action="/citas/{{ cita.id }}/reprogramar">
+                    <div class="mb-3">
+                        <label class="form-label">Nueva Fecha</label>
+                        <input type="date" name="fecha" id="fecha" class="form-control"
+                               min="{{ fecha_min }}" required onchange="cargarHorarios()">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Nueva Hora</label>
+                        <select name="hora" id="horasDisponibles" class="form-select" required>
+                            <option value="">Selecciona una fecha primero</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-dark w-100">Guardar cambios</button>
+                    <a href="/cliente/dashboard" class="btn btn-outline-secondary w-100 mt-2">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+async function cargarHorarios() {
+    const fecha  = document.getElementById("fecha").value;
+    const select = document.getElementById("horasDisponibles");
+    if (!fecha) return;
+    select.innerHTML = '<option>Cargando...</option>';
+    const res  = await fetch(`/citas/horarios?barbero_id={{ cita.barbero_id }}&fecha=${fecha}`);
+    const data = await res.json();
+    select.innerHTML = data.horarios.length === 0
+        ? '<option value="">No hay horarios disponibles</option>'
+        : data.horarios.map(h => `<option value="${h}">${h}</option>`).join("");
+}
+</script>
+{% endblock %}

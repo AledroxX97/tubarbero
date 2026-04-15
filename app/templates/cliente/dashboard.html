@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Panel Cliente{% endblock %}
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h4>👋 Bienvenido, {{ usuario.nombre }}</h4>
+        <p class="text-muted">Aquí puedes gestionar tus citas</p>
+    </div>
+    <div class="col text-end">
+        <a href="/citas/nueva" class="btn btn-dark">
+            <i class="bi bi-plus-circle"></i> Nueva Cita
+        </a>
+    </div>
+</div>
+
+<!-- Citas activas -->
+<div class="card shadow-sm mb-4">
+    <div class="card-header bg-dark text-white">📅 Mis Citas</div>
+    <div class="card-body">
+        {% if citas %}
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>Servicio</th>
+                        <th>Barbero</th>
+                        <th>Fecha y Hora</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cita in citas %}
+                    <tr>
+                        <td>{{ cita.servicio.nombre }}</td>
+                        <td>{{ cita.barbero.nombre }}</td>
+                        <td>{{ cita.fecha_hora.strftime("%d/%m/%Y %H:%M") }}</td>
+                        <td>
+                            {% if cita.estado == "pendiente" %}
+                                <span class="badge bg-warning text-dark">Pendiente</span>
+                            {% elif cita.estado == "confirmada" %}
+                                <span class="badge bg-success">Confirmada</span>
+                            {% elif cita.estado == "cancelada" %}
+                                <span class="badge bg-danger">Cancelada</span>
+                            {% else %}
+                                <span class="badge bg-secondary">Completada</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if cita.estado in ["pendiente", "confirmada"] %}
+                            <a href="/citas/{{ cita.id }}/reprogramar" class="btn btn-sm btn-outline-primary">
+                                <i class="bi bi-calendar"></i> Reprogramar
+                            </a>
+                            <a href="/citas/{{ cita.id }}/cancelar" class="btn btn-sm btn-outline-danger"
+                               onclick="return confirm('¿Cancelar esta cita?')">
+                                <i class="bi bi-x-circle"></i> Cancelar
+                            </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="text-muted text-center py-3">No tienes citas agendadas aún.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

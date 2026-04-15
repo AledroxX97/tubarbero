@@ -1,0 +1,58 @@
+  :root { --indigo: #4f46e5; --indigo-light: #eef2ff; }
+        body { font-family: 'Segoe UI', sans-serif; }
+
+        /* NAV */
+
+        
+        .navbar { border-bottom: 1px solid #c8c8e4b0; background: #fff; padding: 14px 32px; }
+        .navbar-brand { font-weight: 600; font-size: 20px; color: #1a1a1a; display: flex; align-items: center; gap: 10px; }
+        .logo-icon { width: 34px; height: 34px; background: #1a1a1a; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+        .logo-icon i { color: #fff; font-size: 16px; }
+        .nav-link { color: #6b7280 !important; font-size: 15px; }
+        .nav-link:hover { color: #1a1a1a !important; }
+        .btn-dark-custom { background: #1a1a1a; color: #fff; border-radius: 8px; padding: 8px 20px; font-size: 14px; border: none; }
+        .btn-dark-custom:hover { background: #333; color: #fff; }
+        .btn-outline-custom { border: 1px solid #d1d5db; border-radius: 8px; padding: 8px 20px; font-size: 14px; color: #1a1a1a; background: transparent; }
+        .btn-outline-custom:hover { background: #f9fafb; }
+
+        /* HERO */
+        .hero { padding: 80px 32px 60px; text-align: center; background: #ffffff; background-image: url("/static/img/img1.jpg"); background-size: cover;background-position: center; background-repeat: no-repeat;}
+        .hero-badge { display: inline-block; background: #f3f4f6c7; border: 1px solid #e5e7eb; border-radius: 99px; padding: 5px 16px; font-size: 20px; color: #000000; text-transform:uppercase; margin-bottom: 24px; }
+        .hero-badge1 { display: inline-block; background: #1a1a1ac9; border-radius: 99px; padding: 5px 16px; font-size: 13px; font-style: italic; margin-bottom: 24px; }
+        .hero h1 { font-size: 48px; font-weight: 750; font-style: italic; color: #ffffff; line-height: 1.15; margin-bottom: 20px; }
+        .hero h1 span { color: var(--indigo); }
+        .hero p { font-size: 17px; color: #ffffff; max-width: 520px; margin: 0 auto 36px; line-height: 1.7; }
+
+        /* STATS */
+        .stats-bar { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 16px; margin: 0 32px; padding: 32px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .stat-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px; text-align: center; }
+        .stat-num { font-size: 32px; font-weight: 700; color: #1a1a1a; }
+        .stat-lbl { font-size: 13px; color: #6b7280; margin-top: 4px; }
+
+        /* FEATURES */
+        .features-section { padding: 80px 32px; background: #f9fafb; border-radius: 16px; margin: 0 32px; border: 1px solid #e5e7eb; }
+        .section-label { font-size: 14px; color: var(--indigo); font-weight: 600; letter-spacing: 0.08em; margin-bottom: 10px; }
+        .section-title { font-size: 32px; font-weight: 700; color: #1a1a1a; margin-bottom: 14px; }
+        .section-desc { font-size: 16px; color: #6b7280; max-width: 520px; line-height: 1.7; margin-bottom: 48px; }
+        .feat-card { background: #1a1a1a; border: 2px solid #5c5d5f; border-radius: 16px; padding: 24px; height: 100%; }
+        .feat-icon { width: 44px; height: 44px; background: var(--indigo-light); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+        .feat-icon i { color: var(--indigo); font-size: 20px; }
+        .feat-card h5 { font-size: 15px; font-weight: 600; color: #ffffff; margin-bottom: 8px; }
+        .feat-card p { font-size: 14px; color: #c7cdda; line-height: 1.6; margin: 0; }
+
+        /* HOW IT WORKS */
+        .how-section { padding: 80px 32px; background: #fff; }
+        .step { display: flex; gap: 20px; align-items: flex-start; margin-bottom: 36px; }
+        .step-num { width: 40px; height: 40px; min-width: 40px; background: #1a1a1a; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 15px; }
+        .step h5 { font-size: 16px; font-weight: 600; color: #1a1a1a; margin-bottom: 6px; }
+        .step p { font-size: 14px; color: #6b7280; line-height: 1.6; margin: 0; }
+
+        /* CTA */
+        .cta-section { background: #1a1a1a; padding: 80px 32px; text-align: center; }
+        .cta-section h2 { font-size: 36px; font-weight: 700; color: #fff; margin-bottom: 16px; }
+        .cta-section p { font-size: 16px; color: #9ca3af; margin-bottom: 36px; }
+        .btn-white { background: #fff; color: #1a1a1a; border-radius: 8px; padding: 12px 28px; font-size: 15px; font-weight: 600; border: none; }
+        .btn-white:hover { background: #f3f4f6; }
+
+        /* FOOTER */
+        footer { background: #f9fafb; border-top: 1px solid #e5e7eb; padding: 32px; }

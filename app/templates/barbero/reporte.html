@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% block title %}Reporte Semanal{% endblock %}
+{% block content %}
+
+<div class="row mb-4 align-items-center">
+    <div class="col">
+        <h4>📊 Reporte Semanal</h4>
+        <p class="text-muted mb-0">
+            {{ reporte.semana_inicio_display }} — {{ reporte.semana_fin }}
+        </p>
+    </div>
+    <div class="col-auto d-flex gap-2 align-items-center">
+        <a href="/barbero/dashboard" class="btn btn-outline-dark btn-sm">← Volver</a>
+    </div>
+</div>
+<div class="col-auto d-flex gap-2 align-items-center">
+        <!-- Navegación semanas -->
+        <a href="/barbero/reporte?fecha={{ fecha_anterior }}" class="btn btn-outline-dark btn-sm">
+            ← Semana anterior
+        </a>
+        <a href="/barbero/reporte?fecha={{ fecha_siguiente }}" class="btn btn-outline-dark btn-sm
+           {{ 'disabled' if es_semana_actual }}">
+            Semana siguiente →
+        </a>
+    </div>
+<br>
+<!-- Resumen -->
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card text-center border-0 bg-success text-white shadow-sm">
+            <div class="card-body">
+                <h6>Total Ingresos</h6>
+                <h3>${{ "{:,.0f}".format(reporte.ingresos) }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center border-0 bg-danger text-white shadow-sm">
+            <div class="card-body">
+                <h6>Total Gastos</h6>
+                <h3>${{ "{:,.0f}".format(reporte.gastos) }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center border-0 shadow-sm
+             {{ 'bg-dark text-white' if reporte.balance >= 0 else 'bg-warning text-dark' }}">
+            <div class="card-body">
+                <h6>Balance</h6>
+                <h3>${{ "{:,.0f}".format(reporte.balance) }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Gráfica por día -->
+<div class="card shadow-sm mb-4">
+    <div class="card-header bg-dark text-white">📈 Ingresos vs Gastos por día</div>
+    <div class="card-body">
+        <canvas id="graficaSemanal" height="100"></canvas>
+    </div>
+</div>
+
+<!-- Detalle -->
+<div class="row">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-header bg-success text-white">💵 Ingresos</div>
+            <div class="card-body p-0">
+                <table class="table mb-0">
+                    {% for m in reporte.lista_ingresos %}
+                    <tr>
+                        <td>{{ m.descripcion }}</td>
+                        <td class="text-end fw-bold">${{ "{:,.0f}".format(m.monto) }}</td>
+                        <td class="text-muted small">{{ m.fecha.strftime("%d/%m") }}</td>
+                    </tr>
+                    {% else %}
+                    <tr><td class="text-muted text-center py-3">Sin ingresos esta semana</td></tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-header bg-danger text-white">💸 Gastos</div>
+            <div class="card-body p-0">
+                <table class="table mb-0">
+                    {% for m in reporte.lista_gastos %}
+                    <tr>
+                        <td>{{ m.descripcion }}</td>
+                        <td class="text-end fw-bold">${{ "{:,.0f}".format(m.monto) }}</td>
+                        <td class="text-muted small">{{ m.fecha.strftime("%d/%m") }}</td>
+                    </tr>
+                    {% else %}
+                    <tr><td class="text-muted text-center py-3">Sin gastos esta semana</td></tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const dias    = {{ reporte.detalle_dias | tojson }};
+    const labels  = Object.keys(dias);
+    const ing     = labels.map(d => dias[d].ingresos);
+    const gas     = labels.map(d => dias[d].gastos);
+
+    new Chart(document.getElementById("graficaSemanal"), {
+        type: "bar",
+        data: {
+            labels,
+            datasets: [
+                { label: "Ingresos", data: ing, backgroundColor: "#198754" },
+                { label: "Gastos",   data: gas, backgroundColor: "#dc3545" }
+            ]
+        },
+        options: { responsive: true, plugins: { legend: { position: "top" } } }
+    });
+</script>
+{% endblock %}

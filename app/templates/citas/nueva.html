@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}Nueva Cita{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header bg-dark text-white">📅 Reservar Nueva Cita</div>
+            <div class="card-body p-4">
+                {% if error %}
+                <div class="alert alert-danger">{{ error }}</div>
+                {% endif %}
+                <form method="POST" action="/citas/nueva">
+                    <div class="mb-3">
+                        <label class="form-label">Barbero</label>
+                        <select name="barbero_id" class="form-select" required onchange="cargarServicios()">
+                            <option value="">Selecciona un barbero</option>
+                            {% for barbero in barberos %}
+                            <option value="{{ barbero.id }}">{{ barbero.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Servicio</label>
+                        <select name="servicio_id" id="servicios" class="form-select" required>
+                            <option value="">Selecciona un barbero primero</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Fecha</label>
+                        <input type="date" name="fecha" id="fecha" class="form-control" min="{{ fecha_min }}" required
+                            onchange="cargarHorarios()">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Hora disponible</label>
+                        <select name="hora" id="horasDisponibles" class="form-select" required>
+                            <option value="">Selecciona fecha y barbero primero</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Notas (opcional)</label>
+                        <textarea name="notas" class="form-control" rows="2"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-dark w-100">Confirmar Reserva</button>
+                    <a href="/cliente/dashboard" class="btn btn-outline-secondary w-100 mt-2">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Se llama cuando cambia el barbero
+    async function cargarServicios() {
+        const barberoId = document.querySelector('[name="barbero_id"]').value;
+        const selSvr = document.getElementById("servicios");
+
+        if (!barberoId) return;
+
+        const res = await fetch(`/citas/servicios?barbero_id=${barberoId}`);
+        const data = await res.json();
+
+        selSvr.innerHTML = data.servicios.length === 0
+            ? '<option value="">Este barbero no tiene servicios</option>'
+            : data.servicios.map(s =>
+                `<option value="${s.id}">${s.nombre} — $${s.precio.toLocaleString()} (${s.duracion} min)</option>`
+            ).join("");
+
+        // Si ya hay fecha seleccionada, cargar horarios también
+        const fecha = document.getElementById("fecha").value;
+        if (fecha) cargarHorarios();
+    }
+
+    // Se llama cuando cambia la fecha
+    async function cargarHorarios() {
+        const barberoId = document.querySelector('[name="barbero_id"]').value;
+        const fecha = document.getElementById("fecha").value;
+        const select = document.getElementById("horasDisponibles");
+
+        if (!barberoId || !fecha) return;
+
+        select.innerHTML = '<option>Cargando...</option>';
+        const res = await fetch(`/citas/horarios?barbero_id=${barberoId}&fecha=${fecha}`);
+        const data = await res.json();
+
+        select.innerHTML = data.horarios.length === 0
+            ? '<option value="">No hay horarios disponibles</option>'
+            : data.horarios.map(h => `<option value="${h}">${h}</option>`).join("");
+    }
+</script>
+{% endblock %}

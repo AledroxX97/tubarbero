@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% block title %}Mis Servicios{% endblock %}
+{% block content %}
+
+<div class="row mb-4">
+    <div class="col">
+        <h4>✂️ Mis Servicios</h4>
+        <p class="text-muted">Configura los servicios que ofreces</p>
+    </div>
+    <div class="col text-end">
+        <a href="/barbero/dashboard" class="btn btn-outline-dark btn-sm">← Volver</a>
+    </div>
+</div>
+
+{% if mensaje %}
+<div class="alert alert-success">{{ mensaje }}</div>
+{% endif %}
+{% if error %}
+<div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+
+<div class="row">
+    <!-- Formulario crear/editar -->
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-header bg-dark text-white">
+                {{ '✏️ Editar Servicio' if editar else '➕ Nuevo Servicio' }}
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ '/barbero/servicios/' + editar.id|string + '/editar' if editar else '/barbero/servicios' }}">
+                    <div class="mb-3">
+                        <label class="form-label">Nombre</label>
+                        <input type="text" name="nombre" class="form-control"
+                               value="{{ editar.nombre if editar else '' }}"
+                               placeholder="Ej: Corte clásico" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Precio ($)</label>
+                        <input type="number" name="precio" class="form-control"
+                               value="{{ editar.precio if editar else '' }}"
+                               min="1" step="1" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Duración (minutos)</label>
+                        <input type="number" name="duracion" class="form-control"
+                               value="{{ editar.duracion if editar else '' }}"
+                               min="10" step="10" required>
+                    </div>
+                    <button type="submit" class="btn btn-dark w-100">
+                        {{ '💾 Guardar cambios' if editar else '➕ Agregar Servicio' }}
+                    </button>
+                    {% if editar %}
+                    <a href="/barbero/servicios" class="btn btn-outline-secondary w-100 mt-2">
+                        Cancelar edición
+                    </a>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lista de servicios -->
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-header bg-dark text-white">📋 Servicios Registrados</div>
+            <div class="card-body p-0">
+                {% if servicios %}
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Precio</th>
+                                <th>Duración</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for s in servicios %}
+                            <tr>
+                                <td>{{ s.nombre }}</td>
+                                <td>${{ "{:,.0f}".format(s.precio) }}</td>
+                                <td>{{ s.duracion }} min</td>
+                                <td class="d-flex gap-1">
+                                    <a href="/barbero/servicios/{{ s.id }}/editar"
+                                       class="btn btn-sm btn-outline-primary">
+                                        ✏️ Editar
+                                    </a>
+                                    <a href="/barbero/servicios/{{ s.id }}/eliminar"
+                                       class="btn btn-sm btn-outline-danger"
+                                       onclick="return confirm('¿Eliminar este servicio?')">
+                                        🗑️ Eliminar
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <p class="text-muted text-center py-4">No tienes servicios registrados aún.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

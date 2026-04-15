@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Mi Horario{% endblock %}
+{% block content %}
+
+
+<div class="row mb-4">
+    <div class="col">
+        <h4>🕐Configurar Horario</h4>
+        <p class="text-muted">Establece tu jornada laboral</p>
+    </div>
+<div class="col text-end">
+    <a href="/barbero/dashboard" class="btn btn-outline-dark btn-sm">← Volver</a>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="card shadow">
+            <div class="card-header bg-dark text-white">
+                🕐 
+            </div>
+            <div class="card-body p-4">
+                {% if mensaje %}
+                <div class="alert alert-success">{{ mensaje }}</div>
+                {% endif %}
+                {% if error %}
+                <div class="alert alert-danger">{{ error }}</div>
+                {% endif %}
+
+                <form method="POST" action="/barbero/horario">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Hora de apertura</label>
+                        <input type="time" name="hora_inicio" class="form-control"
+                            value="{{ horario.hora_inicio if horario else '08:00' }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Hora de cierre</label>
+                        <input type="time" name="hora_fin" class="form-control"
+                            value="{{ horario.hora_fin if horario else '18:00' }}" required>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" name="activo" class="form-check-input" id="activo" {{ 'checked' if not
+                            horario or horario.activo }}>
+                        <label class="form-check-label" for="activo">
+                            Estoy disponible para recibir citas
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-dark w-100">
+                        💾 Guardar Horario
+                    </button>
+                    
+                </form>
+            </div>
+        </div>
+
+        <!-- Horario actual -->
+        {% if horario %}
+        <div class="card mt-3 border-0 bg-light">
+            <div class="card-body text-center">
+                <p class="mb-1 text-muted">Horario actual</p>
+                <h5 class="fw-bold">
+                    {{ horario.hora_inicio }} — {{ horario.hora_fin }}
+                </h5>
+                <span class="{{ 'badge bg-success' if horario.activo else 'badge bg-danger' }}">
+                    {{ '✅ Disponible' if horario.activo else '❌ No disponible' }}
+                </span>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
