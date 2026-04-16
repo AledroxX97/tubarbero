@@ -49,7 +49,7 @@
 </div>
 
 <script>
-    // Se llama cuando cambia el barbero
+    
     async function cargarServicios() {
         const barberoId = document.querySelector('[name="barbero_id"]').value;
         const selSvr = document.getElementById("servicios");
@@ -65,12 +65,12 @@
                 `<option value="${s.id}">${s.nombre} — $${s.precio.toLocaleString()} (${s.duracion} min)</option>`
             ).join("");
 
-        // Si ya hay fecha seleccionada, cargar horarios también
+        
         const fecha = document.getElementById("fecha").value;
         if (fecha) cargarHorarios();
     }
 
-    // Se llama cuando cambia la fecha
+    
     async function cargarHorarios() {
         const barberoId = document.querySelector('[name="barbero_id"]').value;
         const fecha = document.getElementById("fecha").value;
