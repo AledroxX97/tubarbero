@@ -14,7 +14,7 @@ from app.models.usuario import HorarioBarbero
 router     = APIRouter(tags=["citas"])
 templates  = Jinja2Templates(directory="app/templates")
 
-# ── Dashboards ─────────────────────────────────────────────────────────────
+
 
 @router.get("/cliente/dashboard", response_class=HTMLResponse)
 def dashboard_cliente(request: Request, db: Session = Depends(get_db),
@@ -40,7 +40,7 @@ def dashboard_barbero(request: Request, db: Session = Depends(get_db),
         "citas_pendientes": citas_pendientes
     })
 
-# ── Nueva cita ──────────────────────────────────────────────────────────────
+
 
 @router.get("/citas/nueva", response_class=HTMLResponse)
 def nueva_cita_page(request: Request, db: Session = Depends(get_db),
@@ -75,15 +75,13 @@ def nueva_cita(request: Request, db: Session = Depends(get_db),
     
 
 
-# ── Horarios disponibles (RF3) ──────────────────────────────────────────────
-
 @router.get("/citas/horarios")
 def horarios_disponibles(barbero_id: int, fecha: str, db: Session = Depends(get_db)):
     horarios = CitaService.obtener_horarios_disponibles(db, barbero_id, fecha)
     return {"horarios": horarios}
 
 
-# ── Servicios por barbero ───────────────────────────────────────────────────
+
 
 @router.get("/citas/servicios")
 def servicios_por_barbero(barbero_id: int, db: Session = Depends(get_db)):
@@ -91,7 +89,7 @@ def servicios_por_barbero(barbero_id: int, db: Session = Depends(get_db)):
     return {"servicios": [{"id": s.id, "nombre": s.nombre,
                            "precio": s.precio, "duracion": s.duracion} for s in servicios]}
 
-# ── Cancelar ────────────────────────────────────────────────────────────────
+
 
 @router.get("/citas/{cita_id}/cancelar")
 def cancelar(cita_id: int, db: Session = Depends(get_db),
@@ -103,7 +101,7 @@ def cancelar(cita_id: int, db: Session = Depends(get_db),
     destino = "/barbero/dashboard" if usuario.rol == "barbero" else "/cliente/dashboard"
     return RedirectResponse(url=destino, status_code=302)
 
-# ── Reprogramar ─────────────────────────────────────────────────────────────
+
 
 @router.get("/citas/{cita_id}/reprogramar", response_class=HTMLResponse)
 def reprogramar_page(cita_id: int, request: Request, db: Session = Depends(get_db),
@@ -125,7 +123,7 @@ def reprogramar(cita_id: int, db: Session = Depends(get_db),
         cita = db.query(Cita).filter(Cita.id == cita_id).first()
         return RedirectResponse(url=f"/citas/{cita_id}/reprogramar", status_code=302)
 
-# ── Confirmar / Completar (solo barbero) ────────────────────────────────────
+
 
 @router.get("/citas/{cita_id}/confirmar")
 def confirmar(cita_id: int, db: Session = Depends(get_db),
@@ -139,7 +137,7 @@ def completar(cita_id: int, db: Session = Depends(get_db),
     CitaService.completar_cita(db, cita_id)
     return RedirectResponse(url="/barbero/dashboard", status_code=302)
 
-# ── Horario del barbero ─────────────────────────────────────────────────────
+
 
 @router.get("/barbero/horario", response_class=HTMLResponse)
 def horario_page(request: Request, db: Session = Depends(get_db),
@@ -157,7 +155,7 @@ def guardar_horario(request: Request, db: Session = Depends(get_db),
                     hora_fin:    str = Form(...),
                     activo:      str = Form(None)):
 
-    # Validar que hora inicio sea menor que hora fin
+    
     if hora_inicio >= hora_fin:
         horario = db.query(HorarioBarbero).filter(
             HorarioBarbero.barbero_id == usuario.id).first()
@@ -191,7 +189,7 @@ def guardar_horario(request: Request, db: Session = Depends(get_db),
         "mensaje": "✅ Horario guardado correctamente"
     })
 
-# ── Gestión de servicios ────────────────────────────────────────────────────
+
 
 @router.get("/barbero/servicios", response_class=HTMLResponse)
 def servicios_page(request: Request, db: Session = Depends(get_db),

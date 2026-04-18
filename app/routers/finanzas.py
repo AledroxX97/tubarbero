@@ -46,12 +46,12 @@ def reporte_semanal(request: Request, db: Session = Depends(get_db),
                     fecha: str = None):
     reporte = FinanzaService.reporte_semanal(db, fecha_referencia=fecha)
 
-    # Calcular fechas para navegación
+    
     inicio_dt      = datetime.strptime(reporte["semana_inicio"], "%Y-%m-%d")
     fecha_anterior = (inicio_dt - timedelta(days=7)).strftime("%Y-%m-%d")
     fecha_siguiente = (inicio_dt + timedelta(days=7)).strftime("%Y-%m-%d")
 
-    # No permitir ir más allá de la semana actual
+    
     hoy             = datetime.today()
     inicio_actual   = hoy - timedelta(days=hoy.weekday())
     es_semana_actual = inicio_dt.date() >= inicio_actual.date()
