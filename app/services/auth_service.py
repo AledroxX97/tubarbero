@@ -13,7 +13,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM  = os.getenv("ALGORITHM", "HS256")
 EXPIRE_MIN = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 60))
 
-# Contexto de encriptación
+
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 class AuthService:
@@ -42,7 +42,7 @@ class AuthService:
 
     @staticmethod
     def registrar_usuario(db: Session, datos: UsuarioCreate) -> Usuario:
-        # Verificar si el email ya existe
+        
         existe = db.query(Usuario).filter(Usuario.email == datos.email).first()
         if existe:
             raise ValueError("El email ya está registrado")

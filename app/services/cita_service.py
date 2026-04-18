@@ -6,8 +6,8 @@ from datetime import datetime, timedelta
 from app.models.usuario import HorarioBarbero
 from app.models.finanzas import Movimiento, TipoMovimiento
 
-HORA_INICIO = 8   # 8:00 AM
-HORA_FIN    = 18  # 6:00 PM
+HORA_INICIO = 8   
+HORA_FIN    = 18  
 
 class CitaService:
 
@@ -18,7 +18,7 @@ class CitaService:
         if fecha_dt.date() < datetime.today().date():
             return []
 
-        # Obtener horario del barbero
+        
         horario = db.query(HorarioBarbero).filter(
          HorarioBarbero.barbero_id == barbero_id
         ).first()
@@ -33,10 +33,10 @@ class CitaService:
             h_ini, m_ini = HORA_INICIO, 0
             h_fin, m_fin = HORA_FIN, 0
 
-        # Citas ocupadas — incluir completadas para bloquear esa hora igual
+        
         citas_del_dia = db.query(Cita).filter(
             Cita.barbero_id == barbero_id,
-            Cita.estado.in_(["pendiente", "confirmada", "completada"]),  # ← aquí el cambio
+            Cita.estado.in_(["pendiente", "confirmada", "completada"]),  
             Cita.fecha_hora >= fecha_dt,
             Cita.fecha_hora < fecha_dt + timedelta(days=1)
         ).all()
@@ -52,10 +52,10 @@ class CitaService:
         hora_actual = datetime(fecha_dt.year, fecha_dt.month, fecha_dt.day, h_ini, m_ini)
         hora_limite = datetime(fecha_dt.year, fecha_dt.month, fecha_dt.day, h_fin, m_fin)
 
-        # Si es hoy, no mostrar horas pasadas
+        
         ahora = datetime.now()
         if fecha_dt.date() == ahora.date():
-            # Avanzar al próximo slot futuro
+            
             while hora_actual <= ahora:
                 hora_actual += timedelta(minutes=30)
 
@@ -135,7 +135,7 @@ class CitaService:
     
         cita.estado = EstadoCita.completada
     
-        # Registrar ingreso automáticamente
+        
         ingreso = Movimiento(
             tipo        = TipoMovimiento.ingreso,
             descripcion = f"Servicio: {cita.servicio.nombre} — Cliente: {cita.cliente.nombre}",
