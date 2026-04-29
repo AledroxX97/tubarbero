@@ -1,7 +1,5 @@
 from sqlalchemy.orm import Session
 from app.models.cita import Cita, EstadoCita
-from app.models.usuario import Usuario
-from app.models.servicio import Servicio
 from datetime import datetime, timedelta
 from app.models.usuario import HorarioBarbero
 from app.models.finanzas import Movimiento, TipoMovimiento

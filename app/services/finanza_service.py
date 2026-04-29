@@ -1,7 +1,5 @@
 from sqlalchemy.orm import Session
-from sqlalchemy import func
 from app.models.finanzas import Movimiento, TipoMovimiento
-from app.models.cita import Cita, EstadoCita
 from datetime import datetime, timedelta
 
 class FinanzaService:

@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from app.models.usuario import Usuario, RolUsuario
+from app.models.usuario import Usuario
 from app.schemas.usuario import UsuarioCreate
 from passlib.context import CryptContext
 from jose import JWTError, jwt
