@@ -1,9 +1,8 @@
 from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import RedirectResponse, HTMLResponse
+from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from app.database import Base, engine
-from app.models import usuario, cita, servicio, finanzas
 from app.routers import auth, citas, finanzas as finanzas_router
 
 Base.metadata.create_all(bind=engine)
